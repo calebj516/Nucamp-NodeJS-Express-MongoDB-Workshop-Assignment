@@ -10,6 +10,12 @@ router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
 
+router.get("/users", authenticate.verifyAdmin, function (req, res, next) {
+  if (req.user.admin) {
+    User.find();
+  }
+});
+
 router.post("/signup", (req, res) => {
   User.register(
     new User({ username: req.body.username }),
